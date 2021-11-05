@@ -1,31 +1,13 @@
+FROM python:3.6
 
+COPY . /src
 
+COPY ./requirements.txt /src/requirements.txt
 
-ckerfile
+WORKDIR src
 
-# pull the official docker image
-FROM python:3.9.4-slim
+EXPOSE 8000:8000
 
-# set work directory
-WORKDIR /app
-
-# set env variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# install dependencies
-COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# copy project
-COPY ..
-
-
-
-
-
-
-
-
-
-
+CMD [ "uvicorn", "main:app", "--reload", "--host", "0.0.0.0"  ]
